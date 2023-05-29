@@ -1,0 +1,59 @@
+<root>
+	<Panel style="visibility:collapse;">
+		<Panel id="container" style="visibility:collapse;">
+			<Image src="file://panorama/images/custom_game/close.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/patreon.png" hittest="false" />
+
+			<Image src="file://panorama/images/custom_game/loading_screen/bg.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/loading_screen/patreon.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/loading_screen/xhs.jpg" hittest="false" />
+			<Image src="file://panorama/images/custom_game/loading_screen/mods/modlist1.jpg" hittest="false" />
+			<Image src="file://panorama/images/custom_game/loading_screen/mods/modlist2.jpg" hittest="false" />
+			<Image src="file://panorama/images/custom_game/loading_screen/mods/modlist3.jpg" hittest="false" />
+			<Image src="file://panorama/images/custom_game/loading_screen/mods/modlist4.jpg" hittest="false" />
+			<Image src="file://panorama/images/custom_game/loading_screen/mods/modlist6.jpg" hittest="false" />
+
+			<Image src="file://panorama/images/custom_game/gg/gg_background.png" hittest="false" />
+
+			<Image src="file://panorama/images/custom_game/battlepass/teleport1.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport2.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport3.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport4.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport5.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport6.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport7.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport8.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport9.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport10.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport11.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport12.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport13.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport14.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport15.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport16.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport17.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport18.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport19.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport20.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport21.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport22.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport23.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport24.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport25.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport26.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/teleport27.png" hittest="false" />
+
+			<Image src="file://panorama/images/custom_game/battlepass/levelup.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/levelup2.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/levelup3.png" hittest="false" />
+			<Image src="file://panorama/images/custom_game/battlepass/levelup4.png" hittest="false" />
+
+			<Image src="file://panorama/images/items/doom_artifact.png" hittest="false" />
+			<Image src="file://panorama/images/items/key_of_the_three_moons.png" hittest="false" />
+			<Image src="file://panorama/images/items/lightning_sword.png" hittest="false" />
+			<Image src="file://panorama/images/items/ring_of_superiority.png" hittest="false" />
+			<Image src="file://panorama/images/items/shield_of_invincibility.png" hittest="false" />
+		</Panel>
+	</Panel>
+</root>

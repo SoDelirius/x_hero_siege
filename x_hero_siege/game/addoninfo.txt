@@ -1,0 +1,30 @@
+"AddonInfo"
+{
+	"addontitle"					"X Hero Siege"
+	"addon_game_name"				"X Hero Siege"
+	"addonversion"					"3.46"
+	"addontagline"					"X HERO SIEGE WARCRAFT"
+	"addonauthor"					"[Bear] Cookies #42"
+	"addonSteamGroupName"			"X_Hero_Siege"
+	"addonauthorSteamID"			"jeizy261"
+	"addonContent_Campaign"			"0"
+	"HeroGuidesSupported"			"1"
+
+	"maps"						"x_hero_siege_4 x_hero_siege_8 x_hero_siege_demo"
+	"IsPlayable"				"1"
+
+	"x_hero_siege_4"
+	{
+		"MaxPlayers"			"4"
+	}
+
+	"x_hero_siege_8"
+	{
+		"MaxPlayers"			"8"
+	}
+
+	"x_hero_siege_demo"
+	{
+		"MaxPlayers"			"1"
+	}
+}

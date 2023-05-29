@@ -1,0 +1,115 @@
+.Timers
+{
+	margin-left: 47.3%;
+	align: left top;
+	flow-children: right;
+}
+
+.AspectRatio16x10 .Timers
+{
+	margin-left: 47%;
+}
+
+.AspectRatio4x3 .Timers
+{
+	margin-left: 46.4%;
+}
+
+#TimerPanels
+{
+	margin-left: 3%;
+	flow-children: right;
+	box-shadow: fill #00000066 -4px -4px 8px 8px;
+	background-color: #000000da;
+	border: 2px solid #FF7800FF;
+	border-radius: 8px;
+}
+
+#GameTime
+{
+	flow-children: down;
+	width: 100px;
+	height: 42px;
+	z-index: 2;
+}
+
+.TopbarPanel
+{
+	margin-left: 5px;
+	margin-right: 5px;
+	flow-children: down;
+	width: 100px;
+	height: 45px;
+}
+
+#SpecialArena,
+#HeroImage,
+#SpiritBeast,
+#FrostInfernal,
+#AllHeroImage
+{
+	visibility: collapse;
+}
+
+.TopbarPanelLabel
+{
+	margin-top: 5px;
+	font-size: 12px;
+	font-weight: bold;
+	color: DodgerBlue;
+	text-align: center;
+	width: 100%;
+	max-height: 15px;
+	text-transform: uppercase;
+	text-overflow: shrink;
+}
+
+#GameTimer_game_time
+{
+	margin-top: 50%;
+	font-size: 14px;
+	font-weight: bold;
+	color: #ffffff;
+	text-align: center;
+	width: 100%;
+	text-transform: uppercase;
+	text-overflow: clip;
+}
+
+.AspectRatio16x10 #GameTimer
+{
+	margin-top: 52%;
+	font-size: 13px;
+}
+
+.AspectRatio4x3 #GameTimer
+{
+	margin-top: 53%;
+	font-size: 13px;
+}
+
+.TimerLabel
+{
+	font-size: 15px;
+	font-weight: bold;
+	color: #ffffff;
+	text-align: center;
+	width: 100%;
+	text-transform: uppercase;
+	text-overflow: clip;
+}
+
+#Timer.timer_visible
+{
+	opacity: 1;
+}
+
+#Timer.timer_hidden
+{
+	opacity: 0;
+}
+
+#Timer.timer_alert
+{
+	color: red;
+}

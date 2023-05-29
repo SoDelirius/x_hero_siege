@@ -1,0 +1,98 @@
+"imba_safe_to_leave"				"Cheat mode enabled, no battlepass experience earned"
+"coming_soon"						"Coming Soon: Being able to choose Battlepass rewards"
+
+"battlepass"						"Battlepass"
+"battlepass_level"					"Level: "
+"battlepass_xp"						"Battlepass XP"
+"battlepass_reward_locked"			"Locked!"
+"battlepass_reward_description"		"You've reached level "
+"battlepass_level"					"Level: "
+"battlepass_refresh"				"Refresh"
+
+// Battlepass rewards
+"battlepass_teleport"				"Teleport FX"
+"battlepass_teleport1"				"TI 2014"
+"battlepass_teleport2"				"League"
+"battlepass_teleport3"				"League: Bronze"
+"battlepass_teleport4"				"League: Silver"
+"battlepass_teleport5"				"League: Gold"
+"battlepass_teleport6"				"TI 2015: Level 1"
+"battlepass_teleport7"				"TI 2015: Level 2"
+"battlepass_teleport8"				"Fall Season 2015: Level 1"
+"battlepass_teleport9"				"Fall Season 2015: Level 2"
+"battlepass_teleport10"				"Winter 2016: Level 1"
+"battlepass_teleport11"				"Winter 2016: Level 2"
+"battlepass_teleport12"				"Winter 2016: Level 3"
+"battlepass_teleport13"				"TI 2016: Level 1"
+"battlepass_teleport14"				"TI 2016: Level 2"
+"battlepass_teleport15"				"TI 2016: Level 3"
+"battlepass_teleport16"				"Fall 2016: Level 1"
+"battlepass_teleport17"				"Fall 2016: Level 2"
+"battlepass_teleport18"				"Fall 2016: Level 3"
+"battlepass_teleport19"				"TI 2017: Level 1"
+"battlepass_teleport20"				"TI 2017: Level 2"
+"battlepass_teleport21"				"TI 2017: Level 3"
+"battlepass_teleport22"				"TI 2018: Level 1"
+"battlepass_teleport23"				"TI 2018: Level 2"
+"battlepass_teleport24"				"TI 2018: Level 3"
+"battlepass_teleport25"				"TI 2019: Level 1"
+"battlepass_teleport26"				"TI 2019: Level 2"
+"battlepass_teleport27"				"TI 2019: Level 3"
+
+"battlepass_levelup"				"Tome of stats FX"
+"battlepass_levelup1"				"TI 2016"
+"battlepass_levelup2"				"TI 2017"
+"battlepass_levelup3"				"TI 2018"
+"battlepass_levelup4"				"TI 2019"
+
+// End Screen
+"custom_end_screen_legend_imr"		"IMR"
+
+//Donator Tab
+"donator"							"Donator"
+"donator_patreon"					"Patreon"
+"donator_Patreon_wrapper_label"		"Become a Patron"
+"donator_Companion_wrapper_label"	"Select a Companion"
+"donator_Statue_wrapper_label"		"Select a Statue"
+"donator_tag"						"Tag"
+"donator_tag_wrapper_label"			"Choose a health bar tag"
+"donator_companion"					"Companion"
+"donator_statue"					"Statue"
+"donator_info"						"Select a Companion"
+"companion_enabled"					"Companion enabled."
+"companion_disabled"				"Companion disabled."
+// "companion_enabled"					"Companion enabled. (Click to disable)"
+// "companion_disabled"				"Companion disabled. (Click to enable)"
+"companion_success"					"Companion changed with: "
+"companion_error"					"Oops! Something went wrong."
+"companion_not_donator"				"This feature is only for Patreon donators. Click here to pledge!"
+"toggle_companion"					"Toggle Companion"
+"donator_emblem"					"Emblem"
+
+"statue_success"					"Statue changed with: "
+
+"emblem_success"					"Emblem changed with: "
+
+"bp_reward_equip_description"		"Click to Equip/Unequip item"
+"bp_reward_equip_success"			"Reward equipped: "
+"bp_reward_unequip_success"			"Reward unequipped: "
+
+//Leaderboard
+"leaderboard"						"Leaderboard"
+"leaderboard_loading"				"Loading leaderboard, please wait"
+"leaderboard_rank"					"Rank"
+"leaderboard_steam_avatar"			"Steam"
+"leaderboard_xp"					"Experience"
+"leaderboard_winrate"				"Winrate"
+
+// Game Info
+"gamemode_settings_difficulty"		"Difficulty:"
+
+// settings
+"toggle_ingame_tag"				"Toggle health bar label"
+"disable_companion"				"Disable companion"
+"toggle_bp_rewards"				"Toggle battlepass rewards"
+"toggle_player_xp"				"Toggle battlepass XP visibility (will take effect on next game)"
+"toggle_winrate"				"Toggle Winrate visibility"
+
+"imba_gamemode_settings_gold_multiplier"	"Difficulty:"
