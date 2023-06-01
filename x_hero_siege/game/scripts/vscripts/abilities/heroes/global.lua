@@ -45,7 +45,7 @@ function ShowWearables(event)
 	end
 end
 
-function(keys) -- Called only On Spawn
+function AbilityStack(keys) -- Called only On Spawn
 	local caster = keys.caster
 	local ability = keys.ability
 	local ability_level = ability:GetLevel() - 1
@@ -57,23 +57,26 @@ function(keys) -- Called only On Spawn
 end
 
 function SwapAbilities(keys)
-local caster = keys.caster
-local ability = keys.ability
-local sub_ability = keys.sub_ability
-local main_ability = ability:GetAbilityName()
+	local caster = keys.caster
+	local ability = keys.ability
+	local sub_ability = keys.sub_ability
+	local main_ability = ability:GetAbilityName()
 
 	caster:SwapAbilities(main_ability, sub_ability, false, true)
 end
 
+-- The ability that uses this is defined twice Delirius
 function CastleMuradin(event)
-if event.ability == nil then return end
-local caster = event.caster
-local ability = event.ability
-local heroes = HeroList:GetAllHeroes()
-local Waypoint = Entities:FindByName(nil, "final_wave_player_1")
-local Health = ability:GetSpecialValueFor("hp_tooltip")
-local InvTime = ability:GetSpecialValueFor("invulnerability_time")
-local PauseTime = 10.0
+	if event.ability == nil then return end
+	local caster = event.caster
+	local ability = event.ability
+	local heroes = HeroList:GetAllHeroes()
+	-- I don't see this referenced anywhere Delirius
+	local Waypoint = Entities:FindByName(nil, "final_wave_player_1")
+	-- I think just to clean this up you could add PauseTime to the ability values like the others or move the others into here so they are called the same way. Delirius
+	local Health = ability:GetSpecialValueFor("hp_tooltip")
+	local InvTime = ability:GetSpecialValueFor("invulnerability_time")
+	local PauseTime = 10.0
 
 	if caster:GetHealthPercent() <= Health then
 		PauseCreeps(PauseTime)
@@ -83,6 +86,7 @@ local PauseTime = 10.0
 		Muradin:MoveToPositionAggressive(Waypoint:GetAbsOrigin())
 		Muradin:EmitSound("MountainKing.Avatar")
 
+		-- Could you use PauseHeroes here instead of redefining it? I guess this was done because you are also using set_player_camera Delirius
 		for _, hero in pairs(heroes) do
 			CustomGameEventManager:Send_ServerToPlayer(hero:GetPlayerOwner(), "set_player_camera", {hPosition = Muradin:GetAbsOrigin()})
 
@@ -103,21 +107,24 @@ end
 
 -- Global Splash
 function Splash(event)
-local attacker = event.caster
-local target = event.target
-local ability = event.ability
-local radius = ability:GetSpecialValueFor("radius")
-local cleave = ability:GetSpecialValueFor("cleave_pct")
-
+	local attacker = event.caster
+	local target = event.target
+	local ability = event.ability
+	local radius = ability:GetSpecialValueFor("radius")
+	local cleave = ability:GetSpecialValueFor("cleave_pct")
 	local splash_targets = FindUnitsInRadius(attacker:GetTeamNumber(), target:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_ANY_ORDER, false)
 
 	for _, unit in pairs(splash_targets) do
+		-- Im not sure if I'm reading this right or if it is intended but it seems like fi you are attacking buildings it will splash onto creeps around it Delirius
 		if target:IsBuilding() then return end
+		-- I don't think this is needed because the unit and target cannot be on opposite teams as we are specifically searching for enemies in the splash_targets. Also we already check if its a building Delirius
 		if unit ~= target and not unit:IsBuilding() then
+			-- I see we are checking if ranged users have the splash item. I don't see anywhere that we are making sure that melee isn't stacking cleave. Is this because Dota doesn't allow that by default? Delirius
 			if ability:IsItem() and attacker:GetAttackCapability() == DOTA_UNIT_CAP_RANGED_ATTACK then return end
 			local full_damage = attacker:GetRealDamageDone(unit)
 			local cleave_damage = cleave * full_damage / 100
---			print(full_damage, cleave_damage) -- prints the right value, but somehow damage dealt are incorrect still
+			--print(full_damage, cleave_damage) -- prints the right value, but somehow damage dealt are incorrect still
+			-- Is the damage type supposed to be PURE? Delirius
 			ApplyDamage({victim = unit, attacker = attacker, damage = cleave_damage, ability = ability, damage_type = DAMAGE_TYPE_PURE})
 		end
 	end
