@@ -1,6 +1,8 @@
+-- Is this used for abilities that have two parts so if you level it while in one part the other part gets leveled too? Delirius
 function LevelUpAbility(event)
 local caster = event.caster
 
+	-- Is this check needed if we only utilize this for hero abilities? Delirius
 	if caster:IsRealHero() then
 		local this_ability = event.ability		
 		local this_abilityName = this_ability:GetAbilityName()
@@ -43,12 +45,12 @@ function ShowWearables(event)
 	end
 end
 
-function AbilityStack(keys) -- Called only On Spawn
-local caster = keys.caster
-local ability = keys.ability
-local ability_level = ability:GetLevel() - 1
-local modifier_stack = keys.modifier_stack
-local stacks = caster:GetLevel()
+function(keys) -- Called only On Spawn
+	local caster = keys.caster
+	local ability = keys.ability
+	local ability_level = ability:GetLevel() - 1
+	local modifier_stack = keys.modifier_stack
+	local stacks = caster:GetLevel()
 
 	ability:ApplyDataDrivenModifier(caster, caster, modifier_stack, {})
 	caster:SetModifierStackCount(modifier_stack, ability, stacks)
