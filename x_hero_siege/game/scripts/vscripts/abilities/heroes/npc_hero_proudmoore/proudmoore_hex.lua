@@ -30,6 +30,8 @@ function voodoo_end( keys )
 	end
 end
 
+-- This function also exists within the globals.lua. Any differences between the two don't do anything so I changed the NPC abilities to utilize globals.lua Delirius
+--[[
 function HideWearables( event )
   local hero = event.target
   local ability = event.ability
@@ -48,6 +50,7 @@ function HideWearables( event )
     model = model:NextMovePeer()
   end
 end
+]]--
 
 --[[Author: Noya
   Date: 10.01.2015.

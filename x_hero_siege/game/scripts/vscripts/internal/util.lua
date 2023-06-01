@@ -37,6 +37,7 @@ function PrintTable(t, indent)
 	end
 end
 
+-- I don't see these referenced anywhere else Delirius
 -- Colors
 COLOR_NONE = '\x06'
 COLOR_GRAY = '\x06'
@@ -60,7 +61,9 @@ COLOR_GOLD = '\x1D'
 --[[Author: Noya
 	Date: 09.08.2015.
 	Hides all dem hats
-]]
+]]--
+-- This function is never called, it is only called from globals.lua Delirius
+--[[
 function HideWearables(event)
 	local hero = event.caster
 	local model = hero:FirstMoveChild()
@@ -76,6 +79,7 @@ function HideWearables(event)
 		model = model:NextMovePeer()
 	end
 end
+]]--
 
 function ShowWearables(event)
 	local hero = event.caster

@@ -21,9 +21,11 @@ local caster = keys.caster
 	caster:SetAttackCapability(caster.caster_attack)
 end
 
+-- This function also exists within the globals.lua. Any differences between the two don't do anything so I changed the NPC abilities to utilize globals.lua Delirius
+--[[
 function HideWearables(event)
-local hero = event.caster
-local ability = event.ability
+	local hero = event.caster
+	local ability = event.ability
 
 	hero.hiddenWearables = {} -- Keep every wearable handle in a table to show them later
     local model = hero:FirstMoveChild()
@@ -35,6 +37,7 @@ local ability = event.ability
         model = model:NextMovePeer()
     end
 end
+]]--
 
 function ShowWearables(event)
 local hero = event.caster
