@@ -56,6 +56,8 @@ end
   Date: 10.01.2015.
   Shows the hidden hero wearables
 ]]
+-- This function is never called, it is only called from globals.lua Delirius
+--[[
 function ShowWearables( event )
   local hero = event.target
 
@@ -64,3 +66,4 @@ function ShowWearables( event )
     v:RemoveEffects(EF_NODRAW)
   end
 end
+]]--

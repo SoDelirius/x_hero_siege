@@ -39,6 +39,8 @@ function HideWearables(event)
 end
 ]]--
 
+-- This function also exists within the globals.lua. Any differences between the two don't do anything so I changed the NPC abilities to utilize globals.lua Delirius
+--[[
 function ShowWearables(event)
 local hero = event.caster
 
@@ -46,3 +48,4 @@ local hero = event.caster
 		v:RemoveEffects(EF_NODRAW)
 	end
 end
+]]--

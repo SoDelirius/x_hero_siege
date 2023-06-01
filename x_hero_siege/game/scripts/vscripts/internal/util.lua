@@ -81,6 +81,8 @@ function HideWearables(event)
 end
 ]]--
 
+-- This function is never called, it is only called from globals.lua Delirius
+--[[
 function ShowWearables(event)
 	local hero = event.caster
 
@@ -88,6 +90,7 @@ function ShowWearables(event)
 		v:RemoveEffects(EF_NODRAW)
 	end
 end
+]]--
 
 -- Adds [stack_amount] stacks to a modifier
 function AddStacks(ability, caster, unit, modifier, stack_amount, refresh)

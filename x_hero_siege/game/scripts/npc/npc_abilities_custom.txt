@@ -5680,7 +5680,7 @@
 
 					"RunScript"
 					{
-						"ScriptFile"	"abilities/heroes/hero_terrorblade.lua"
+						"ScriptFile"	"abilities/heroes/global.lua"
 						"Function"		"ShowWearables"
 					}
 				}
