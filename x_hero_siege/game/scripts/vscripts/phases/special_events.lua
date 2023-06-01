@@ -2,7 +2,8 @@ require('libraries/timers')
 
 function MuradinEvent(time)
 	local stun_duration = 5.0
-	CustomTimers.current_time["special_event"] = time + stun_duration
+	-- This is where the event ending at 5 seconds comes from removing the added 5 seconds. Delirius 
+	CustomTimers.current_time["special_event"] = time -- + stun_duration
 	BT_ENABLED = 0
 	StunBuildings(time)
 	local mode = GameRules:GetGameModeEntity()
@@ -16,9 +17,11 @@ function MuradinEvent(time)
 	EmitSoundOn("Muradin.StormEarthFire", Muradin)
 	Notifications:TopToAll({ hero = "npc_dota_hero_zuus", duration = stun_duration })
 	Notifications:TopToAll({ text = " You can't kill him! Just survive the Countdown. ", continue = true })
-	Notifications:TopToAll({ text = "Reward: 15 000 Gold.", continue = true })
+	-- Changed this so it is consistent with the value set in constants
+	Notifications:TopToAll({ text = "Reward: " .. XHS_MURADIN_EVENT_GOLD .. " Gold.", continue = true })
 
 	for nPlayerID = 0, PlayerResource:GetPlayerCount() - 1 do
+		-- Arent both of these statements looking for the same thing? Delirius
 		if PlayerResource:HasSelectedHero(nPlayerID) and PlayerResource:GetSelectedHeroEntity(nPlayerID) ~= "npc_dota_hero_wisp" then
 			local hero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
 			hero.old_pos = hero:GetAbsOrigin()
@@ -67,12 +70,14 @@ function EndMuradinEvent()
 	local MuradinCheck = FindUnitsInRadius(DOTA_TEAM_GOODGUYS, Entities:FindByName(nil, "npc_dota_muradin_boss"):GetAbsOrigin(), nil, 2000, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_INVULNERABLE, FIND_ANY_ORDER, false)
 
 	for _, hero in pairs(MuradinCheck) do
+		-- Why do we need a timer? Delirius
 		Timers:CreateTimer(function()
 			if hero and not hero:IsNull() and hero:IsRealHero() and not hero:IsIllusion() and hero:IsRealHero() and not hero.paid then
 				hero.paid = true
 				if hero.old_pos then
 					TeleportHero(hero, hero.old_pos, 3.0, 1.0)
 				else
+					-- Does this need to happen? All heroes near Muradin that don't have a saved position should just be teleported to BASE_GOOD imo Delirius
 					if hero:GetTeamNumber() == 2 then
 						TeleportHero(hero, BASE_GOOD:GetAbsOrigin(), 3.0, 1.0)
 					elseif hero:GetTeamNumber() == 3 then
