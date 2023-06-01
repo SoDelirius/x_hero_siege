@@ -318,6 +318,7 @@ function GetItemByID(id)
 	end
 end
 
+-- This function currently only works after the first wave has been spawned. Delirius
 function OpenLane(lane_number)
 	if CustomTimers.game_phase == 1 then
 		if CREEP_LANES_TYPE == 1 then

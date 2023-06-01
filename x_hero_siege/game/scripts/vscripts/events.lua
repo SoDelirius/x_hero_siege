@@ -721,97 +721,9 @@ ListenToGameEvent("player_chat", function(keys)
 	local hero = PlayerResource:GetPlayer(userID):GetAssignedHero()
 	local donator_level = api:GetDonatorStatus(userID)
 
+	-- Does this loop need to exist? It seems like this listener will trigger every time a player enters something in the chat and we are just looking for non-space characters Delirius
+	-- I think maybe we could use string.match(text, "^%-") just to see if the string begins with a dash. Delirius
 	for str in string.gmatch(text, "%S+") do
-		if donator_level == 1 or donator_level == 2 or donator_level == 3 or IsInToolsMode() then
-			for Frozen = 0, PlayerResource:GetPlayerCount() - 1 do
-				local PlayerNames = { "Red", "Blue", "Cyan", "Purple", "Yellow", "Orange", "Green", "Pink" }
-				if PlayerResource:IsValidPlayer(Frozen) then
-					if str == "-freeze_" .. Frozen + 1 then
-						local hero = PlayerResource:GetPlayer(Frozen):GetAssignedHero()
-						hero:AddNewModifier(hero, nil, "modifier_pause_creeps", {})
-						hero:AddNewModifier(hero, nil, "modifier_invulnerable", {})
-						PlayerResource:SetCameraTarget(hero:GetPlayerOwnerID(), hero)
-						Notifications:TopToAll({ text = "[ADMIN MOD]: ", duration = 6.0, style = { color = "red", ["font-size"] = "30px" } })
-						Notifications:TopToAll({ text = PlayerNames[Frozen + 1] .. " ", style = { color = PlayerNames[Frozen + 1], ["font-size"] = "25px" }, continue = true })
-						Notifications:TopToAll({ text = "player has been jailed!", style = { color = "white", ["font-size"] = "25px" }, continue = true })
-					end
-					if str == "-unfreeze_" .. Frozen + 1 then
-						local hero = PlayerResource:GetPlayer(Frozen):GetAssignedHero()
-						hero:RemoveModifierByName("modifier_pause_creeps")
-						hero:RemoveModifierByName("modifier_pause_creeps")
-						hero:RemoveModifierByName("modifier_invulnerable")
-						hero:RemoveModifierByName("modifier_command_restricted")
-						PlayerResource:SetCameraTarget(hero:GetPlayerOwnerID(), nil)
-						Notifications:TopToAll({ text = "[ADMIN MOD]: ", duration = 6.0, style = { color = "red", ["font-size"] = "30px" } })
-						Notifications:TopToAll({ text = PlayerNames[Frozen + 1] .. " ", style = { color = PlayerNames[Frozen + 1], ["font-size"] = "25px" }, continue = true })
-						Notifications:TopToAll({ text = "player has been released!", style = { color = "white", ["font-size"] = "25px" }, continue = true })
-					end
-					if str == "-kill_" .. Frozen + 1 then
-						local hero = PlayerResource:GetPlayer(Frozen):GetAssignedHero()
-						if hero:IsAlive() then
-							hero:ForceKill(true)
-							Notifications:TopToAll({ text = "[ADMIN MOD]: ", duration = 6.0, style = { color = "red", ["font-size"] = "30px" } })
-							Notifications:TopToAll({ text = PlayerNames[Frozen + 1] .. " ", style = { color = PlayerNames[Frozen + 1], ["font-size"] = "25px" }, continue = true })
-							Notifications:TopToAll({ text = "player has been slayed!", style = { color = "white", ["font-size"] = "25px" }, continue = true })
-						end
-					end
-					if str == "-revive_" .. Frozen + 1 then
-						local hero = PlayerResource:GetPlayer(Frozen):GetAssignedHero()
-						hero:RespawnHero(false, false)
-						Notifications:TopToAll({ text = "[ADMIN MOD]: ", duration = 6.0, style = { color = "red", ["font-size"] = "30px" } })
-						Notifications:TopToAll({ text = PlayerNames[Frozen + 1] .. " ", style = { color = PlayerNames[Frozen + 1], ["font-size"] = "25px" }, continue = true })
-						Notifications:TopToAll({ text = "player has been revived!", style = { color = "white", ["font-size"] = "25px" }, continue = true })
-					end
-					if str == "-yolo_" .. Frozen + 1 then
-						local hero = PlayerResource:GetPlayer(Frozen):GetAssignedHero()
-						hero:SetMoveCapability(DOTA_UNIT_CAP_MOVE_FLY)
-						StartAnimation(hero, { duration = 9999.0, activity = ACT_DOTA_FLAIL, rate = 0.9 })
-						yolo = ParticleManager:CreateParticle("particles/units/heroes/hero_batrider/batrider_firefly_ember.vpcf", PATTACH_ABSORIGIN_FOLLOW, hero)
-						ParticleManager:SetParticleControl(yolo, 0, hero:GetAbsOrigin() + Vector(0, 0, 100))
-						yolo2 = ParticleManager:CreateParticle("particles/units/heroes/hero_ember_spirit/ember_spirit_flameguard.vpcf", PATTACH_ABSORIGIN_FOLLOW, hero)
-						hero:EmitSound("Hero_Batrider.Firefly.Cast")
-						hero:EmitSound("Hero_Batrider.Firefly.Loop")
-						Notifications:TopToAll({ text = "[ADMIN MOD]: ", duration = 6.0, style = { color = "red", ["font-size"] = "30px" } })
-						Notifications:TopToAll({ text = PlayerNames[Frozen + 1] .. " ", style = { color = PlayerNames[Frozen + 1], ["font-size"] = "25px" }, continue = true })
-						Notifications:TopToAll({ text = "player is in YOLO state!", style = { color = "white", ["font-size"] = "25px" }, continue = true })
-					end
-					if str == "-unyolo_" .. Frozen + 1 then
-						local hero = PlayerResource:GetPlayer(Frozen):GetAssignedHero()
-						hero:SetMoveCapability(DOTA_UNIT_CAP_MOVE_GROUND)
-						EndAnimation(hero)
-						hero:StopSound("Hero_Batrider.Firefly.Loop")
-						ParticleManager:DestroyParticle(yolo, true)
-						ParticleManager:DestroyParticle(yolo2, true)
-						Notifications:TopToAll({ text = "[ADMIN MOD]: ", duration = 6.0, style = { color = "red", ["font-size"] = "30px" } })
-						Notifications:TopToAll({ text = PlayerNames[Frozen + 1] .. " ", style = { color = PlayerNames[Frozen + 1], ["font-size"] = "25px" }, continue = true })
-						Notifications:TopToAll({ text = "player is not in YOLO state anymore.", style = { color = "white", ["font-size"] = "25px" }, continue = true })
-					end
-				end
-			end
-
-			if str == "-replaceherowith" then
-				text = string.gsub(text, str, "")
-				text = string.gsub(text, " ", "")
-				print(PlayerResource:GetSelectedHeroName(hero:GetPlayerID()), "npc_dota_hero_" .. text, KeyValues.HeroKV["npc_dota_hero_" .. text])
-				if PlayerResource:GetSelectedHeroName(hero:GetPlayerID()) ~= "npc_dota_hero_" .. text then
-					--					if KeyValues.HeroKV["npc_dota_hero_"..text] then
-					PrecacheUnitByNameAsync("npc_dota_hero_" .. text, function()
-						local wisp = PlayerResource:GetSelectedHeroEntity(hero:GetPlayerID())
-						local new_hero = PlayerResource:ReplaceHeroWith(hero:GetPlayerID(), "npc_dota_hero_" .. text, 0, 0)
-
-						Timers:CreateTimer(1.0, function()
-							if wisp then
-								UTIL_Remove(wisp)
-							end
-						end)
-					end)
-					--					else
-					--						Notifications:TopToAll({text="Hero don't exist!", duration=6.0, style={color="red", ["font-size"]="30px"}})
-					--					end
-				end
-			end
-		end
-
 		if str == "-bt" then
 			if GameRules:IsGamePaused() then
 				SendErrorMessage(hero:GetPlayerID(), "#error_buy_tome_pause")
@@ -877,12 +789,44 @@ ListenToGameEvent("player_chat", function(keys)
 				CloseCreepLane(hero:GetPlayerID(), i)
 			end
 		end
-	end
+
+		if str == "-replaceherowith" then
+				text = string.gsub(text, str, "")
+				text = string.gsub(text, " ", "")
+				print(PlayerResource:GetSelectedHeroName(hero:GetPlayerID()), "npc_dota_hero_" .. text, KeyValues.HeroKV["npc_dota_hero_" .. text])
+				if PlayerResource:GetSelectedHeroName(hero:GetPlayerID()) ~= "npc_dota_hero_" .. text then
+					--if KeyValues.HeroKV["npc_dota_hero_"..text] then
+					PrecacheUnitByNameAsync("npc_dota_hero_" .. text, function()
+						local wisp = PlayerResource:GetSelectedHeroEntity(hero:GetPlayerID())
+						local new_hero = PlayerResource:ReplaceHeroWith(hero:GetPlayerID(), "npc_dota_hero_" .. text, 0, 0)
+
+						Timers:CreateTimer(1.0, function()
+							if wisp then
+								UTIL_Remove(wisp)
+							end
+						end)
+					end)
+					--					else
+					--						Notifications:TopToAll({text="Hero don't exist!", duration=6.0, style={color="red", ["font-size"]="30px"}})
+					--					end
+				end
+		end
 
 	local openlane_command = {
 		"openlane",
 		"ol",
 	}
+
+	-- This isn't completely fleshed out because I haven't tested the pattern matching but I think this could be an easier way to do this. Delirius
+	--[[if string.find(text, "^%-openlane%_") or string.find(text, "^%-ol%_") then
+		local lane = nil
+		local i, j = string.find(text, "%d")
+
+		if lane <= 8 then
+			print("Opening lane:", lane)
+			OpenLane(lane)
+		end
+	end]]--
 
 	for _, openlane in pairs(openlane_command) do
 		local i, j = string.find(text, openlane .. "_%d")
@@ -917,6 +861,86 @@ ListenToGameEvent("player_chat", function(keys)
 			if lane <= 8 then
 				print("Opening lane:", lane)
 				CloseLane(hero:GetPlayerID(), lane)
+			end
+		end
+	end
+
+	--I moved this section to the end because the majority of the time someone running these commands will not be a donator. Delirius
+	if donator_level == 1 or donator_level == 2 or donator_level == 3 or IsInToolsMode() then
+		-- This could be changed to Frozen = 1 and remove the -1 to GetPlayer count. You wouldn't need to do any math on this then Delirius
+		for Frozen = 0, PlayerResource:GetPlayerCount() - 1 do
+			local PlayerNames = { "Red", "Blue", "Cyan", "Purple", "Yellow", "Orange", "Green", "Pink" }
+			-- This isn't fleshed out completely but I think it could replace the need to use some of the functions that are currently in place. We would use the GetPlayerId() Delirius
+			-- Function above and then use that in place of the Frozen variable so we don't need to loop through all players Delirius
+			--local id = player.GetPlayerId()) Delirius
+			--if str == string.match(text, "%-freeze_") then
+			--		hero:AddNewModifier(hero, nil, "modifier_pause_creeps", {})
+			--		hero:AddNewModifier(hero, nil, "modifier_invulnerable", {})
+			--		PlayerResource:SetCameraTarget(hero:GetPlayerOwnerID(), hero)
+			--		Notifications:TopToAll({ text = "[ADMIN MOD]: ", duration = 6.0, style = { color = "red", ["font-size"] = "30px" } })
+			--		Notifications:TopToAll({ text = PlayerNames[id] .. " ", style = { color = PlayerNames[id], ["font-size"] = "25px" }, continue = true })
+			--		Notifications:TopToAll({ text = "player has been jailed!", style = { color = "white", ["font-size"] = "25px" }, continue = true })
+			if PlayerResource:IsValidPlayer(Frozen) then
+				if str == "-freeze_" .. Frozen + 1 then
+					local hero = PlayerResource:GetPlayer(Frozen):GetAssignedHero()
+					hero:AddNewModifier(hero, nil, "modifier_pause_creeps", {})
+					hero:AddNewModifier(hero, nil, "modifier_invulnerable", {})
+					PlayerResource:SetCameraTarget(hero:GetPlayerOwnerID(), hero)
+					Notifications:TopToAll({ text = "[ADMIN MOD]: ", duration = 6.0, style = { color = "red", ["font-size"] = "30px" } })
+					Notifications:TopToAll({ text = PlayerNames[Frozen + 1] .. " ", style = { color = PlayerNames[Frozen + 1], ["font-size"] = "25px" }, continue = true })
+					Notifications:TopToAll({ text = "player has been jailed!", style = { color = "white", ["font-size"] = "25px" }, continue = true })
+				end
+				if str == "-unfreeze_" .. Frozen + 1 then
+					local hero = PlayerResource:GetPlayer(Frozen):GetAssignedHero()
+					hero:RemoveModifierByName("modifier_pause_creeps")
+					hero:RemoveModifierByName("modifier_pause_creeps")
+					hero:RemoveModifierByName("modifier_invulnerable")
+					hero:RemoveModifierByName("modifier_command_restricted")
+					PlayerResource:SetCameraTarget(hero:GetPlayerOwnerID(), nil)
+					Notifications:TopToAll({ text = "[ADMIN MOD]: ", duration = 6.0, style = { color = "red", ["font-size"] = "30px" } })
+					Notifications:TopToAll({ text = PlayerNames[Frozen + 1] .. " ", style = { color = PlayerNames[Frozen + 1], ["font-size"] = "25px" }, continue = true })
+					Notifications:TopToAll({ text = "player has been released!", style = { color = "white", ["font-size"] = "25px" }, continue = true })
+				end
+				if str == "-kill_" .. Frozen + 1 then
+					local hero = PlayerResource:GetPlayer(Frozen):GetAssignedHero()
+					if hero:IsAlive() then
+						hero:ForceKill(true)
+						Notifications:TopToAll({ text = "[ADMIN MOD]: ", duration = 6.0, style = { color = "red", ["font-size"] = "30px" } })
+						Notifications:TopToAll({ text = PlayerNames[Frozen + 1] .. " ", style = { color = PlayerNames[Frozen + 1], ["font-size"] = "25px" }, continue = true })
+						Notifications:TopToAll({ text = "player has been slayed!", style = { color = "white", ["font-size"] = "25px" }, continue = true })
+					end
+				end
+				if str == "-revive_" .. Frozen + 1 then
+					local hero = PlayerResource:GetPlayer(Frozen):GetAssignedHero()
+					hero:RespawnHero(false, false)
+					Notifications:TopToAll({ text = "[ADMIN MOD]: ", duration = 6.0, style = { color = "red", ["font-size"] = "30px" } })
+					Notifications:TopToAll({ text = PlayerNames[Frozen + 1] .. " ", style = { color = PlayerNames[Frozen + 1], ["font-size"] = "25px" }, continue = true })
+					Notifications:TopToAll({ text = "player has been revived!", style = { color = "white", ["font-size"] = "25px" }, continue = true })
+				end
+				if str == "-yolo_" .. Frozen + 1 then
+					local hero = PlayerResource:GetPlayer(Frozen):GetAssignedHero()
+					hero:SetMoveCapability(DOTA_UNIT_CAP_MOVE_FLY)
+					StartAnimation(hero, { duration = 9999.0, activity = ACT_DOTA_FLAIL, rate = 0.9 })
+					yolo = ParticleManager:CreateParticle("particles/units/heroes/hero_batrider/batrider_firefly_ember.vpcf", PATTACH_ABSORIGIN_FOLLOW, hero)
+					ParticleManager:SetParticleControl(yolo, 0, hero:GetAbsOrigin() + Vector(0, 0, 100))
+					yolo2 = ParticleManager:CreateParticle("particles/units/heroes/hero_ember_spirit/ember_spirit_flameguard.vpcf", PATTACH_ABSORIGIN_FOLLOW, hero)
+					hero:EmitSound("Hero_Batrider.Firefly.Cast")
+					hero:EmitSound("Hero_Batrider.Firefly.Loop")
+					Notifications:TopToAll({ text = "[ADMIN MOD]: ", duration = 6.0, style = { color = "red", ["font-size"] = "30px" } })
+					Notifications:TopToAll({ text = PlayerNames[Frozen + 1] .. " ", style = { color = PlayerNames[Frozen + 1], ["font-size"] = "25px" }, continue = true })
+					Notifications:TopToAll({ text = "player is in YOLO state!", style = { color = "white", ["font-size"] = "25px" }, continue = true })
+				end
+				if str == "-unyolo_" .. Frozen + 1 then
+					local hero = PlayerResource:GetPlayer(Frozen):GetAssignedHero()
+					hero:SetMoveCapability(DOTA_UNIT_CAP_MOVE_GROUND)
+					EndAnimation(hero)
+					hero:StopSound("Hero_Batrider.Firefly.Loop")
+					ParticleManager:DestroyParticle(yolo, true)
+					ParticleManager:DestroyParticle(yolo2, true)
+					Notifications:TopToAll({ text = "[ADMIN MOD]: ", duration = 6.0, style = { color = "red", ["font-size"] = "30px" } })
+					Notifications:TopToAll({ text = PlayerNames[Frozen + 1] .. " ", style = { color = PlayerNames[Frozen + 1], ["font-size"] = "25px" }, continue = true })
+					Notifications:TopToAll({ text = "player is not in YOLO state anymore.", style = { color = "white", ["font-size"] = "25px" }, continue = true })
+				end
 			end
 		end
 	end
@@ -1794,6 +1818,7 @@ end
 
 ---------------------------------------------------------
 
+-- Is this function used for anything? Delirius
 function GameMode:OnBossFightIntro(hBoss)
 	local Dialog = self:GetDialog(hBoss)
 	if Dialog == nil then
@@ -1856,6 +1881,7 @@ end
 
 ---------------------------------------------------------
 
+-- Is this function used for anything? Delirius
 function GameMode:OnBossFightIntroEnd(hBoss)
 	CustomGameEventManager:Send_ServerToAllClients("boss_intro_end", netTable)
 
@@ -2067,6 +2093,7 @@ end
 
 ---------------------------------------------------------
 
+-- Is this function used for anything? Delirius
 function GameMode:OnPlayerFoundChefNote(nPlayerID, nChefNoteIndex)
 	--	self:TrackPlayerAchievementEvent(self.ChefNotesFound, nPlayerID, nChefNoteIndex)
 end
