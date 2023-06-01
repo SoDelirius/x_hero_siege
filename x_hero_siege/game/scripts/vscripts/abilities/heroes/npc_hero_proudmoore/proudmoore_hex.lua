@@ -2,6 +2,7 @@
 	Date: 18.01.2015.
 	Checks if the target is an illusion, if true then it kills it
 	otherwise the target model gets swapped into the passed model]]
+-- These two don't see to be referenced anywhere Delirius
 function voodoo_start( keys )
 	local target = keys.target
 	local model = keys.model
