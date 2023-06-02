@@ -99,29 +99,33 @@ function FarmEvent(time)
 	StunBuildings(time)
 
 	Notifications:TopToAll({ hero = "npc_dota_hero_alchemist", duration = 5.0 })
-	Notifications:TopToAll({ text = " It's farming time! Kill as much creeps as you can!", continue = true })
+	Notifications:TopToAll({ text = " It's farming time! Kill as many creeps as you can!", continue = true })
 
 	for nPlayerID = 0, PlayerResource:GetPlayerCount() - 1 do
 		if PlayerResource:HasSelectedHero(nPlayerID) and PlayerResource:GetSelectedHeroEntity(nPlayerID) ~= "npc_dota_hero_wisp" then
 			local hero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
 			hero.old_pos = hero:GetAbsOrigin()
 			local point = Entities:FindByName(nil, "farm_event_player_" .. nPlayerID)
-			EmitSoundOn("Muradin.StormEarthFire", point)
 
-			if nPlayerID == nil then
-				Notifications:TopToAll({ text = "Invalid Steam ID detected!! #ERROR 003 ", duration = 10.0 })
-				Notifications:TopToAll({ text = "Please report this bug on Discord!! #ERROR 003 ", continue = true })
-			elseif point == nil then
+			-- If nPlayerID is nil then the above if statement will fail anyway Delirius
+			--if nPlayerID == nil then
+			--	Notifications:TopToAll({ text = "Invalid Steam ID detected!! #ERROR 003 ", duration = 10.0 })
+			--	Notifications:TopToAll({ text = "Please report this bug on Discord!! #ERROR 003 ", continue = true })
+			if point == nil then
 				Notifications:TopToAll({ text = "Invalid teleport point detected!! #ERROR 004 ", duration = 10.0 })
 				Notifications:TopToAll({ text = "Please report this bug on Discord!! #ERROR 004 ", continue = true })
 			else
 				TeleportHero(hero, point:GetAbsOrigin(), nil, 1.0)
+				-- Moved to after hero teleports Delirius
+				EmitSoundOn("Muradin.StormEarthFire", point)
 			end
 
 			GameMode.hero_farm_event[nPlayerID] = {}
 			GameMode.hero_farm_event[nPlayerID]["round"] = 1
 			GameMode.hero_farm_event[nPlayerID]["level"] = 1
 
+			-- Is this not the same thing as the function FarmEventCreeps right after this except it just spawns the same creep? Delirius
+			--[[
 			for j = 1, 10 do
 				local unit = CreateUnitByName(FarmEvent_Creeps[1], point:GetAbsOrigin(), true, nil, nil, DOTA_TEAM_CUSTOM_2)
 				unit:SetBaseDamageMin(unit:GetRealDamageDone(unit) + (FARM_EVENT_UPGRADE["damage"][difficulty] * GameMode.hero_farm_event[nPlayerID]["level"]))
@@ -138,6 +142,7 @@ function FarmEvent(time)
 				--				local stack_10 = math.floor(GameMode.hero_farm_event[nPlayerID]["level"] / 10)
 				--				ParticleManager:SetParticleControl(unit.GrowthOverheadPfx, 2, Vector(stack_10, GameMode.hero_farm_event[nPlayerID]["level"] - stack_10*10, 0))
 			end
+			]]--
 
 			DisableItems(hero, time)
 
@@ -194,8 +199,8 @@ function FarmEventCreeps(id)
 
 					ParticleManager:SetParticleControl(unit.GrowthOverheadPfx, 1, Vector(0, GameMode.hero_farm_event[id]["level"], 0))
 
-					--					local stack_10 = math.floor(GameMode.hero_farm_event[id]["level"] / 10)
-					--					ParticleManager:SetParticleControl(unit.GrowthOverheadPfx, 2, Vector(stack_10, GameMode.hero_farm_event[id]["level"] - stack_10*10, 0))
+					--local stack_10 = math.floor(GameMode.hero_farm_event[id]["level"] / 10)
+					--ParticleManager:SetParticleControl(unit.GrowthOverheadPfx, 2, Vector(stack_10, GameMode.hero_farm_event[id]["level"] - stack_10*10, 0))
 				end
 			end
 
@@ -224,6 +229,7 @@ function EndFarmEvent()
 		end
 	end
 
+	-- Why are we doing this? Delirius
 	local units = FindUnitsInRadius(DOTA_TEAM_CUSTOM_2, Vector(0, 0, 0), nil, FIND_UNITS_EVERYWHERE, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_CREEP, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
 	for _, v in pairs(units) do
 		if v:IsCreature() and v:HasMovementCapability() and v:GetUnitName() ~= "npc_dota_boss_lich_king" then
@@ -276,9 +282,11 @@ function StartRameroAndBaristolEvent(hero)
 	RameroAndBaristolEvent(XHS_RAMERO_BARISTOL_TIME + delay)
 
 	RAMERO = 1
+	-- Is this needed? It seems like it sets their old_pos to where they are after they get teleported out of the event. Delirius
 	hero.old_pos = hero:GetAbsOrigin()
 end
 
+-- This is basically the same as the Muradin event with slightly different things happening. Why don't we have one function that uses an if statement to differentiate between the specifics of the event? Delirius
 function RameroAndBaristolEvent(time) -- 500 kills
 	local stun_duration = 5.0
 	CustomTimers.current_time["special_arena"] = time + stun_duration
@@ -311,6 +319,7 @@ function RameroAndBaristolEvent(time) -- 500 kills
 		CustomGameEventManager:Send_ServerToAllClients("hide_timer_special_arena", {})
 		GameMode.SpecialArena_occuring = 0
 
+		-- I'm not sure what causes it but I have seen where even if you kll them both it'll tell you that you lost the arena. I wonder if something is off about the IsNull() function. Delirius
 		if Ramero:IsNull() and Baristol:IsNull() then
 			return
 		else
@@ -321,6 +330,7 @@ function RameroAndBaristolEvent(time) -- 500 kills
 			-- Has been lost! is correct grammar Delirius 
 			Notifications:TopToAll({ text = "Ramero and Baristol arena has been lost!", duration = 5.0 })
 			Timers:CreateTimer(function()
+				-- I'm confused what the check portion is supposed to do? Delirius
 				if Check < 2 then
 					local RameroAndBaristolCheck = FindUnitsInRadius(DOTA_TEAM_GOODGUYS, Entities:FindByName(nil, "npc_dota_muradin_boss"):GetAbsOrigin(), nil, 2000, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_INVULNERABLE, FIND_ANY_ORDER, false)
 					for _, hero in pairs(RameroAndBaristolCheck) do
@@ -330,6 +340,7 @@ function RameroAndBaristolEvent(time) -- 500 kills
 						end
 					end
 					Check = Check + 1
+					-- Why does it return 5? Delirius
 					return 5
 				end
 			end)
@@ -337,6 +348,7 @@ function RameroAndBaristolEvent(time) -- 500 kills
 	end)
 end
 
+-- These are basically the same as Muradin event as well Delirius
 function StartSogatEvent(hero)
 	local point = Entities:FindByName(nil, "npc_dota_muradin_player_1"):GetAbsOrigin()
 	local delay = 5.0
@@ -345,7 +357,8 @@ function StartSogatEvent(hero)
 	PauseCreeps()
 	TeleportHero(hero, point, delay)
 
-	SogatEvent(120.0 + delay)
+	-- Changed to use variable from constants Delirius
+	SogatEvent(XHS_RAMERO_BARISTOL_TIME + delay)
 
 	RAMERO = 2
 	hero.old_pos = hero:GetAbsOrigin()
@@ -382,7 +395,7 @@ function SogatEvent(time) -- 750 kills
 			UTIL_Remove(Ramero)
 
 			local Check = 0
-			Notifications:TopToAll({ text = "Ramero arena has been loss!", duration = 5.0 })
+			Notifications:TopToAll({ text = "Ramero arena has been lost!", duration = 5.0 })
 			Timers:CreateTimer(0.0, function()
 				if Check < 5 then
 					local RameroCheck = FindUnitsInRadius(DOTA_TEAM_GOODGUYS, Entities:FindByName(nil, "npc_dota_muradin_boss"):GetAbsOrigin(), nil, 2000, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_INVULNERABLE, FIND_ANY_ORDER, false)
@@ -399,6 +412,8 @@ function SogatEvent(time) -- 750 kills
 	end)
 end
 
+
+-- This event isn't used. Can we remove it? Delirius
 function DuelEvent()
 	PauseCreeps()
 	SpawnRunes()
@@ -499,6 +514,7 @@ function DuelEvent()
 	end)
 end
 
+-- This event isn't used. Can we remove it? Delirius
 function DuelRanked()
 	PauseCreeps()
 	SpawnRunes()
