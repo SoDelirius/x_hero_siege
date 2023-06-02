@@ -65,6 +65,7 @@ _G.SOGAT_ARTIFACT_PICKED               = false
 _G.DOOM_ARTIFACT_MERGED                = false
 _G.MAGNATAURS_TO_KILL                  = 1
 
+-- If the game is in tools mode this isn't used based on init.lua Delirius
 if IsInToolsMode() then
 	_G.PREGAMETIME = 15.0
 end

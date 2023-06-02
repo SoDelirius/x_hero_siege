@@ -4,16 +4,16 @@ if CustomTimers == nil then
 	CustomTimers = class({})
 
 	CustomTimers.current_time = {}
-	CustomTimers.current_time["game_time"] = PREGAMETIME * (-1)          -- Game Time
+	CustomTimers.current_time["game_time"] = PREGAMETIME * (-1)				-- Game Time
 	-- if IsInToolsMode() then CustomTimers.current_time["game_time"] = 600 end
-	CustomTimers.current_time["creep_level"] = XHS_CREEPS_UPGRADE_INTERVAL -- Upgrade phase 1 creeps level
-	CustomTimers.current_time["special_wave"] = XHS_SPECIAL_WAVE_INTERVAL -- Special Wave spawning west, north, east, south
+	CustomTimers.current_time["creep_level"] = XHS_CREEPS_UPGRADE_INTERVAL	-- Upgrade phase 1 creeps level
+	CustomTimers.current_time["special_wave"] = XHS_SPECIAL_WAVE_INTERVAL	-- Special Wave spawning west, north, east, south
 	CustomTimers.current_time["special_event"] = XHS_SPECIAL_EVENT_INTERVAL -- Muradin Event, Farm Event, Final Wave
-	CustomTimers.current_time["special_arena"] = 0                       -- Ramero & Baristol, Sogat
-	CustomTimers.current_time["hero_image"] = 0                          -- Hero Image event
-	CustomTimers.current_time["spirit_beast"] = 0                        -- Hero Image event
-	CustomTimers.current_time["frost_infernal"] = 0                      -- Hero Image event
-	CustomTimers.current_time["all_hero_images"] = 0                     -- Hero Image event
+	CustomTimers.current_time["special_arena"] = 0							-- Ramero & Baristol, Sogat
+	CustomTimers.current_time["hero_image"] = 0								-- Hero Image event
+	CustomTimers.current_time["spirit_beast"] = 0						    -- Spirit Beast event
+	CustomTimers.current_time["frost_infernal"] = 0					        -- Frost Infernal event
+	CustomTimers.current_time["all_hero_images"] = 0				        -- All Hero Image event
 
 	CustomTimers.game_phase = 0
 	CustomTimers.creep_level = 1
@@ -44,6 +44,7 @@ ListenToGameEvent('game_rules_state_change', function()
 	end
 end, nil)
 
+-- Why do event.lua and init.lua both have a listener for this? Delirius
 ListenToGameEvent('entity_killed', function(keys)
 	local killed_unit = EntIndexToHScript(keys.entindex_killed)
 	if not killed_unit then return end

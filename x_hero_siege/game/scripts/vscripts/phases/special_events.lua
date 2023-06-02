@@ -17,7 +17,7 @@ function MuradinEvent(time)
 	EmitSoundOn("Muradin.StormEarthFire", Muradin)
 	Notifications:TopToAll({ hero = "npc_dota_hero_zuus", duration = stun_duration })
 	Notifications:TopToAll({ text = " You can't kill him! Just survive the Countdown. ", continue = true })
-	-- Changed this so it is consistent with the value set in constants
+	-- Changed this so it is consistent with the value set in constants Delirius
 	Notifications:TopToAll({ text = "Reward: " .. XHS_MURADIN_EVENT_GOLD .. " Gold.", continue = true })
 
 	for nPlayerID = 0, PlayerResource:GetPlayerCount() - 1 do
