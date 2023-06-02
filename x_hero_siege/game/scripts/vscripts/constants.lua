@@ -93,6 +93,7 @@ GameMode.creep_roll["race"] = 0
 -- _G.STORM_SPIRIT = 0
 
 
+-- Shouldn't the creep level be the same across all lanes? Delirius
 CREEP_LANES = {} -- Stores individual creep lanes {enable/disable, creep level, rax alive}
 CREEP_LANES[1] = { 0, 1, 1 }
 CREEP_LANES[2] = { 0, 1, 1 }
@@ -167,6 +168,7 @@ HEROLIST_VIP[6] = "sand_king"     -- Desert Wyrm
 HEROLIST_VIP[7] = "necrolyte"     -- Dark Summoner
 HEROLIST_VIP[8] = "storm_spirit"  -- Spirit Master
 
+-- Is this used for anything? If not can we just enable these heros? Delirius
 HEROLIST_RANKED = {}
 HEROLIST_RANKED[1] = "terrorblade"      -- Demon Hunter
 HEROLIST_RANKED[2] = "phantom_assassin" -- Warden
@@ -192,6 +194,7 @@ _G.FarmEvent_Creeps = {
 	"npc_dota_creature_satyrr"
 }
 
+-- Instead of creating these two tables couldn't we just set the places that use them to something like damage * difficulty because it scales linearly? Delirius
 FARM_EVENT_UPGRADE = {}
 FARM_EVENT_UPGRADE["damage"] = { 10, 20, 30, 40, 50 }
 FARM_EVENT_UPGRADE["health"] = { 200, 400, 600, 800, 1000 }
@@ -274,6 +277,7 @@ MODIFIER_ITEMS_WITH_LEVELS["modifier_orb_of_lightning_active"] = {
 	"item_orb_of_lightning2",
 	"item_orb_of_lightning",
 }
+
 
 XHS_CREEPS_INTERVAL = 20.0
 XHS_SPECIAL_EVENT_INTERVAL = 540.0                           -- 9 min (has to be a multiple of 3)
