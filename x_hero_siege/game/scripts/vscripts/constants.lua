@@ -272,6 +272,7 @@ MODIFIER_ITEMS_WITH_LEVELS["modifier_orb_of_darkness_active"] = {
 	"item_orb_of_darkness2",
 	"item_orb_of_darkness",
 }
+-- It doesn't seem this item modifier is used Delirius
 MODIFIER_ITEMS_WITH_LEVELS["modifier_orb_of_lightning_active"] = {
 	"item_celestial_claws",
 	"item_orb_of_lightning2",
